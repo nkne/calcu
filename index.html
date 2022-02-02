@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no"/>
-    <title>RANA CALCU</title>
+    <title>RANA CALCU ONLINE</title>
 	
 	<style type="text/css">
 	@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
@@ -31,22 +31,22 @@
   </head>
   <body>
     <form>
-      <h2 align="center">RANA CALCU</h2>
+      <h2 align="center">RANA CALCU ONLINE</h2>
       <p align=center>
 	  
 	  	<label for="cap" >Capital</label> <br>
-	    <input type="number" size="100" min="0" id="cap" />  <br><br>
+	        <input type="number" size="100" min="0" id="cap" />  <br><br>
 		
 		<label for="risk" id="riskusdt">% de Riesgo</label> <br>
-	    <input type="number" class="risk"  size="100" min="0" id="risk" /> <br><br>
+	        <input type="number" class="risk"  size="100" min="0" id="risk" /> <br><br>
 
-		<label for="1o">1º Orden</label> <br>
+		<label for="1o">1er Orden</label> <br>
 		<input type="number" size="100" min="0" id="1o" />   <br><br>
 
-        <label for="2o">2º Orden</label> <br>
+                <label for="2o">2da Orden</label> <br>
 		<input type="number" size="100" min="0" id="2o" />   <br><br>
 		
-		<label for="3o">3º Orden</label> <br>
+		<label for="3o">3er Orden</label> <br>
 		<input type="number" size="100" min="0" id="3o" />   <br><br>
 		
 		<label for="sl">SL</label> <br>
@@ -64,6 +64,7 @@
     <script>
 
 calc.addEventListener("click", press_calc);
+clear.addEventListener("click", press_clear);
 
 function press_calc() {
 
@@ -94,7 +95,9 @@ else
 {alert("Por favor ingrese el Capital y el % de Riesgo"); return false; //salir de la funcion
 };
 
-if (first_order) {} else {alert("Ingrese al menos una orden"); return false;}
+if (first_order)  {} else {alert("Ingrese al menos una orden"); return false;}
+if (second_order) {} else {second_order = 0;}
+if (third_order)  {} else {third_order = 0;}
 
 if (sl) {} else {alert("Es obligatorio el ingreso del SL"); return false;}
 
@@ -112,11 +115,16 @@ avg.innerHTML = "PROMEDIO: " + promedio;
 result.innerHTML = "CANT A COMPRAR POR C/ORDEN: " + Math.abs(cant_lote_x_orden.toFixed(4));
 	
 }	
-	  
+	
+function press_clear() {
+document.getElementById("1o").value = "";
+document.getElementById("2o").value = "";
+document.getElementById("3o").value = "";
+document.getElementById("sl").value = "";
+document.getElementById("1o").focus();
+}
+
       </script>
 	  
-
   </body>
 </html>
-
-
