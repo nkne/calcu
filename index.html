@@ -65,6 +65,7 @@
 
 calc.addEventListener("click", press_calc);
 clear.addEventListener("click", press_clear);
+risk.addEventListener("keyup", risk_keyup);
 
 function press_calc() {
 
@@ -122,6 +123,95 @@ document.getElementById("2o").value = "";
 document.getElementById("3o").value = "";
 document.getElementById("sl").value = "";
 document.getElementById("1o").focus();
+}
+
+function risk_keyup(e) {
+
+var cap = parseFloat(document.getElementById("cap").value);
+var risk = parseFloat(document.getElementById("risk").value);
+
+
+//verificar ingreso de datos
+//solo realizar el calculo si no hay error en el  ingreso de datos
+if (cap * (risk/100)) 
+{
+
+
+
+
+
+
+if (e.code=== "Numpad0") {
+//hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
+var risk_usdt = cap * (risk/100);
+riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
+}
+
+if (e.code=== "Numpad1") {
+//hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
+var risk_usdt = cap * (risk/100);
+riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
+}
+
+if (e.code=== "Numpad2") {
+//hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
+var risk_usdt = cap * (risk/100);
+riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
+}
+
+if (e.code=== "Numpad3") {
+//hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
+var risk_usdt = cap * (risk/100);
+riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
+}
+
+if (e.code=== "Numpad4") {
+//hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
+var risk_usdt = cap * (risk/100);
+riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
+}
+
+if (e.code=== "Numpad5") {
+//hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
+var risk_usdt = cap * (risk/100);
+riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
+}
+
+if (e.code=== "Numpad6") {
+//hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
+var risk_usdt = cap * (risk/100);
+riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
+}
+
+if (e.code=== "Numpad7") {
+//hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
+var risk_usdt = cap * (risk/100);
+riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
+}
+
+if (e.code=== "Numpad8") {
+//hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
+var risk_usdt = cap * (risk/100);
+riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
+}
+
+if (e.code=== "Numpad9") {
+//hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
+var risk_usdt = cap * (risk/100);
+riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
+}
+
+if (e.code=== "Backspace") {
+//hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
+var risk_usdt = cap * (risk/100);
+riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
+}
+
+
+}  else {riskusdt.innerHTML = "% de Riesgo"}
+
+
+
 }
 
       </script>
