@@ -90,7 +90,7 @@ false
 if (cap * (risk/100)) {
 
 var risk_usdt = cap * (risk/100);
-riskusdt.innerHTML = "% de Riesgo (" + risk_usdt + " usdt)"
+riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
 }
 else
 {alert("Por favor ingrese el Capital y el % de Riesgo"); return false; //salir de la funcion
@@ -113,7 +113,7 @@ var cant_lote_x_orden = (risk_usdt / (promedio - sl)) / count;
 
 //mostrar resultados
 avg.innerHTML = "PROMEDIO: " + promedio;
-result.innerHTML = "CANT A COMPRAR POR C/ORDEN: " + Math.abs(cant_lote_x_orden.toFixed(4));
+result.innerHTML = 'CANT A COMPRAR POR C/ORDEN: <span style="color:green">' + Math.abs(cant_lote_x_orden.toFixed(4)) + '</span>';
 	
 }	
 	
@@ -123,6 +123,8 @@ document.getElementById("2o").value = "";
 document.getElementById("3o").value = "";
 document.getElementById("sl").value = "";
 document.getElementById("1o").focus();
+result.innerHTML = 'CANT A COMPRAR POR C/ORDEN: ----';
+avg.innerHTML = 'PROMEDIO: ----'
 }
 
 function risk_keyup(e) {
