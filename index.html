@@ -1,0 +1,122 @@
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no"/>
+    <title>RANA CALCU</title>
+	
+	<style type="text/css">
+	@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+		
+	input {
+	  width: 80%;
+	  height: 40px;
+	  font-size: 16px;
+	  text-align: center;
+	  border: 1px solid;
+      border-radius: 4px;
+	   	  }
+		  
+	* {font-family: 'Roboto Mono', monospace;}
+	
+	h2 {font-family: 'Roboto Mono', monospace;}
+	
+	input[type=number]:focus {background-color: #f2f2f2;}
+		
+	.red {color:red;}
+		
+	.risk {width: 80%;}
+	</style>
+	
+	
+  </head>
+  <body>
+    <form>
+      <h2 align="center">RANA CALCU</h2>
+      <p align=center>
+	  
+	  	<label for="cap" >Capital</label> <br>
+	    <input type="number" size="100" min="0" id="cap" />  <br><br>
+		
+		<label for="risk" id="riskusdt">% de Riesgo</label> <br>
+	    <input type="number" class="risk"  size="100" min="0" id="risk" /> <br><br>
+
+		<label for="1o">1º Orden</label> <br>
+		<input type="number" size="100" min="0" id="1o" />   <br><br>
+
+        <label for="2o">2º Orden</label> <br>
+		<input type="number" size="100" min="0" id="2o" />   <br><br>
+		
+		<label for="3o">3º Orden</label> <br>
+		<input type="number" size="100" min="0" id="3o" />   <br><br>
+		
+		<label for="sl">SL</label> <br>
+		<input type="number" class="red" size="100" min="0" id="sl" />   <br><br>
+
+		<input type="button" value="Calcular" id="calc" />   <br><br>
+		<input type="button" value="Borrar" id="clear" />
+		
+		<h5 align=center id="avg">PROMEDIO: ----</h5>
+		<h4 align=center id="result">CANT A COMPRAR POR C/ORDEN: ----</h4>
+
+	  </p>
+
+      </form>
+    <script>
+
+calc.addEventListener("click", press_calc);
+
+function press_calc() {
+
+var cap = parseFloat(document.getElementById("cap").value);
+var risk = parseFloat(document.getElementById("risk").value);
+var first_order = parseFloat(document.getElementById("1o").value);
+var second_order = parseFloat(document.getElementById("2o").value);
+var third_order = parseFloat(document.getElementById("3o").value);
+var sl = parseFloat(document.getElementById("sl").value);
+
+//valor en usdt del cap arriesgado
+/*will evaluate to true if value is not:
+null
+undefined
+NaN
+empty string ("")
+0
+false
+*/
+
+//verificar ingreso de datos
+if (cap * (risk/100)) {
+
+var risk_usdt = cap * (risk/100);
+riskusdt.innerHTML = "% de Riesgo (" + risk_usdt + " usdt)"
+}
+else
+{alert("Por favor ingrese el Capital y el % de Riesgo"); return false; //salir de la funcion
+};
+
+if (first_order) {} else {alert("Ingrese al menos una orden"); return false;}
+
+if (sl) {} else {alert("Es obligatorio el ingreso del SL"); return false;}
+
+//contar cant de ordenes ingresadas para luego obtener el promedio
+var count = 0
+if (first_order)  {count += 1;}
+if (second_order) {count += 1;}
+if (third_order)  {count += 1;}
+
+var promedio = (first_order + second_order + third_order) / count;
+var cant_lote_x_orden = (risk_usdt / (promedio - sl)) / count;
+
+//mostrar resultados
+avg.innerHTML = "PROMEDIO: " + promedio;
+result.innerHTML = "CANT A COMPRAR POR C/ORDEN: " + Math.abs(cant_lote_x_orden.toFixed(4));
+	
+}	
+	  
+      </script>
+	  
+
+  </body>
+</html>
+
+
