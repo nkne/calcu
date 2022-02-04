@@ -6,45 +6,43 @@
     <title>RANA CALCU ONLINE</title>
 	
 	<style type="text/css">
-	@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 		
-	input {
-	  width: 80%;
-	  height: 40px;
-	  font-size: 16px;
-	  text-align: center;
-	  border: 1px solid;
-      border-radius: 4px;
-	   	  }
-		  
-	* {font-family: 'Roboto Mono', monospace;}
-	
-	h2 {font-family: 'Roboto Mono', monospace;}
-	
-	input[type=number]:focus {background-color: #f2f2f2;}
-		
-	.red {color:red;}
-		
-	.risk {width: 80%;}
+        input {
+        width: 80%;
+        height: 40px;
+        font-size: 16px;
+        text-align: center;
+        border: 1px solid;
+        border-radius: 4px;
+            }
+            
+        * {font-family: 'Arial', 'monospace';}
+        
+        h2 {font-family: 'Arial', 'monospace';}
+        
+        input[type=number]:focus {background-color: #f2f2f2;}
+            
+        .red {color:red;}
+            
+        .risk {width: 80%;}
 	</style>
 	
-	
+
   </head>
   <body>
     <form>
       <h2 align="center">RANA CALCU ONLINE</h2>
       <p align=center>
 	  
-	  	<label for="cap" >Capital</label> <br>
-	        <input type="number" size="100" min="0" id="cap" />  <br><br>
+	  	<label for="cap" >Capital usdt</label> <br>
+	    <input type="number" size="100" min="0" id="cap" />  <br><br>
 		
 		<label for="risk" id="riskusdt">% de Riesgo</label> <br>
-	        <input type="number" class="risk"  size="100" min="0" id="risk" /> <br><br>
+	    <input type="number" class="risk"  size="100" min="0" id="risk" /> <br><br>
 
 		<label for="1o">1er Orden</label> <br>
 		<input type="number" size="100" min="0" id="1o" />   <br><br>
-
-                <label for="2o">2da Orden</label> <br>
+        <label for="2o">2da Orden</label> <br>
 		<input type="number" size="100" min="0" id="2o" />   <br><br>
 		
 		<label for="3o">3er Orden</label> <br>
@@ -56,186 +54,176 @@
 		<input type="button" value="Calcular" id="calc" />   <br><br>
 		<input type="button" value="Borrar" id="clear" />
 		
-		<h5 align=center id="avg">PROMEDIO: ----</h5>
-		<h4 align=center id="result">CANT A COMPRAR POR C/ORDEN: ----</h4>
+		<h5 align=center id="avg">PROMEDIO: / TOTAL PARA ORDEN STOP MARKET:</h5>
+		<h4 align=center id="result">CANT POR C/ORDEN:</h4>
 
 	  </p>
 
       </form>
+
     <script>
 
-calc.addEventListener("click", press_calc);
-clear.addEventListener("click", press_clear);
-risk.addEventListener("keyup", risk_keyup);
-risk.addEventListener("focusout", risk_lost_focus);
+        calc.addEventListener("click", press_calc);
+        clear.addEventListener("click", press_clear);
+        risk.addEventListener("keyup", risk_keyup);
+        risk.addEventListener("focusout", risk_lost_focus);
+
+        function press_calc() {
+
+            var cap = parseFloat(document.getElementById("cap").value);
+            var risk = parseFloat(document.getElementById("risk").value);
+            var first_order = parseFloat(document.getElementById("1o").value);
+            var second_order = parseFloat(document.getElementById("2o").value);
+            var third_order = parseFloat(document.getElementById("3o").value);
+            var sl = parseFloat(document.getElementById("sl").value);
+
+            //valor en usdt del cap arriesgado
+            /*will evaluate to true if value is not:
+            null
+            undefined
+            NaN
+            empty string ("")
+            0
+            false
+            */
+
+            //verificar ingreso de datos
+            if (cap * (risk/100)) 
+            {
+                var risk_usdt = cap * (risk/100);
+                riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
+            }
+            else
+            {
+                alert("Por favor ingrese el Capital y el % de Riesgo"); return false; //salir de la funcion
+            };
+
+            if (first_order)  {} else {alert("Ingrese al menos una orden"); return false;}
+            if (second_order) {} else {second_order = 0;}
+            if (third_order)  {} else {third_order = 0;}
+
+            if (sl) {} else {alert("Es obligatorio el ingreso del SL"); return false;}
+
+            //contar cant de ordenes ingresadas para luego obtener el promedio
+            var count = 0
+            if (first_order)  {count += 1;}
+            if (second_order) {count += 1;}
+            if (third_order)  {count += 1;}
+
+            var promedio = (first_order + second_order + third_order) / count;
+            var cant_lote_x_orden = (risk_usdt / (promedio - sl)) / count;
+            var total_lote = cant_lote_x_orden.toFixed(4) * count.toFixed(4)
+            //mostrar resultados
+            avg.innerHTML = "PROMEDIO: " + Math.abs(promedio.toFixed(4)) + " / TOTAL PARA ORDEN STOP MARKET: " + Math.abs(total_lote.toFixed(4));
+            result.innerHTML = 'CANT POR C/ORDEN: <span style="color:green">' + Math.abs(cant_lote_x_orden.toFixed(4)) + '</span>';
+            
+        }	
+            
+        function press_clear() {
+            document.getElementById("1o").value = "";
+            document.getElementById("2o").value = "";
+            document.getElementById("3o").value = "";
+            document.getElementById("sl").value = "";
+            document.getElementById("1o").focus();
+            avg.innerHTML = 'PROMEDIO: / TOTAL PARA ORDEN STOP MARKET:';
+            result.innerHTML = 'CANT POR C/ORDEN:';
+        }
+
+        function risk_keyup(e) {
+
+            var cap = parseFloat(document.getElementById("cap").value);
+            var risk = parseFloat(document.getElementById("risk").value);
+
+            //verificar ingreso de datos
+            //solo realizar el calculo si no hay error en el  ingreso de datos
+            if (cap * (risk/100)) 
+            {
+
+                if (e.code=== "Numpad0") {
+                    //hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
+                    var risk_usdt = cap * (risk/100);
+                    riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
+                }
+
+                if (e.code=== "Numpad1") {
+                    //hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
+                    var risk_usdt = cap * (risk/100);
+                    riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
+                }
+
+                if (e.code=== "Numpad2") {
+                    //hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
+                    var risk_usdt = cap * (risk/100);
+                    riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
+                }
+
+                if (e.code=== "Numpad3") {
+                    //hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
+                    var risk_usdt = cap * (risk/100);
+                    riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
+                }
+
+                if (e.code=== "Numpad4") {
+                    //hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
+                    var risk_usdt = cap * (risk/100);
+                    riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
+                }
+
+                if (e.code=== "Numpad5") {
+                    //hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
+                    var risk_usdt = cap * (risk/100);
+                    riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
+                }
+
+                if (e.code=== "Numpad6") {
+                    //hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
+                    var risk_usdt = cap * (risk/100);
+                    riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
+                }
+
+                if (e.code=== "Numpad7") {
+                    //hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
+                    var risk_usdt = cap * (risk/100);
+                    riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
+                }
+
+                if (e.code=== "Numpad8") {
+                    //hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
+                    var risk_usdt = cap * (risk/100);
+                    riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
+                }
+
+                if (e.code=== "Numpad9") {
+                    //hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
+                    var risk_usdt = cap * (risk/100);
+                    riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
+                }
+
+                if (e.code=== "Backspace") {
+                    //hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
+                    var risk_usdt = cap * (risk/100);
+                    riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
+                }
 
 
-function press_calc() {
+            }  else {riskusdt.innerHTML = "% de Riesgo"}
 
-var cap = parseFloat(document.getElementById("cap").value);
-var risk = parseFloat(document.getElementById("risk").value);
-var first_order = parseFloat(document.getElementById("1o").value);
-var second_order = parseFloat(document.getElementById("2o").value);
-var third_order = parseFloat(document.getElementById("3o").value);
-var sl = parseFloat(document.getElementById("sl").value);
+        }
 
-//valor en usdt del cap arriesgado
-/*will evaluate to true if value is not:
-null
-undefined
-NaN
-empty string ("")
-0
-false
-*/
+        function risk_lost_focus() 
+        {
+            var cap = parseFloat(document.getElementById("cap").value);
+            var risk = parseFloat(document.getElementById("risk").value);
 
-//verificar ingreso de datos
-if (cap * (risk/100)) {
-
-var risk_usdt = cap * (risk/100);
-riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
-}
-else
-{alert("Por favor ingrese el Capital y el % de Riesgo"); return false; //salir de la funcion
-};
-
-if (first_order)  {} else {alert("Ingrese al menos una orden"); return false;}
-if (second_order) {} else {second_order = 0;}
-if (third_order)  {} else {third_order = 0;}
-
-if (sl) {} else {alert("Es obligatorio el ingreso del SL"); return false;}
-
-//contar cant de ordenes ingresadas para luego obtener el promedio
-var count = 0
-if (first_order)  {count += 1;}
-if (second_order) {count += 1;}
-if (third_order)  {count += 1;}
-
-var promedio = (first_order + second_order + third_order) / count;
-var cant_lote_x_orden = (risk_usdt / (promedio - sl)) / count;
-
-//mostrar resultados
-avg.innerHTML = "PROMEDIO: " + promedio;
-result.innerHTML = 'CANT A COMPRAR POR C/ORDEN: <span style="color:green">' + Math.abs(cant_lote_x_orden.toFixed(4)) + '</span>';
-	
-}	
-	
-function press_clear() {
-document.getElementById("1o").value = "";
-document.getElementById("2o").value = "";
-document.getElementById("3o").value = "";
-document.getElementById("sl").value = "";
-document.getElementById("1o").focus();
-result.innerHTML = 'CANT A COMPRAR POR C/ORDEN: ----';
-avg.innerHTML = 'PROMEDIO: ----'
-}
-
-function risk_keyup(e) {
-
-var cap = parseFloat(document.getElementById("cap").value);
-var risk = parseFloat(document.getElementById("risk").value);
-
-
-//verificar ingreso de datos
-//solo realizar el calculo si no hay error en el  ingreso de datos
-if (cap * (risk/100)) 
-{
-
-
-
-
-
-
-if (e.code=== "Numpad0") {
-//hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
-var risk_usdt = cap * (risk/100);
-riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
-}
-
-if (e.code=== "Numpad1") {
-//hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
-var risk_usdt = cap * (risk/100);
-riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
-}
-
-if (e.code=== "Numpad2") {
-//hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
-var risk_usdt = cap * (risk/100);
-riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
-}
-
-if (e.code=== "Numpad3") {
-//hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
-var risk_usdt = cap * (risk/100);
-riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
-}
-
-if (e.code=== "Numpad4") {
-//hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
-var risk_usdt = cap * (risk/100);
-riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
-}
-
-if (e.code=== "Numpad5") {
-//hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
-var risk_usdt = cap * (risk/100);
-riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
-}
-
-if (e.code=== "Numpad6") {
-//hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
-var risk_usdt = cap * (risk/100);
-riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
-}
-
-if (e.code=== "Numpad7") {
-//hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
-var risk_usdt = cap * (risk/100);
-riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
-}
-
-if (e.code=== "Numpad8") {
-//hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
-var risk_usdt = cap * (risk/100);
-riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
-}
-
-if (e.code=== "Numpad9") {
-//hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
-var risk_usdt = cap * (risk/100);
-riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
-}
-
-if (e.code=== "Backspace") {
-//hacer el calculo y mostrarlo pero unicamente cuando se presiona una tecla numerica
-var risk_usdt = cap * (risk/100);
-riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
-}
-
-
-}  else {riskusdt.innerHTML = "% de Riesgo"}
-
-
-
-}
-
-function risk_lost_focus() {
-risk_keyup()
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            //verificar ingreso de datos
+            //solo realizar el calculo si no hay error en el  ingreso de datos
+            if (cap * (risk/100)) 
+                {
+                //hacer el calculo y mostrarlo
+                var risk_usdt = cap * (risk/100);
+                riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usdt)</span>'
+                }
+        }
 
       </script>
 	  
