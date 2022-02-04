@@ -2,6 +2,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no"/>
+	<link rel="shortcut icon" href="favicon.png">
     <title>RANA CALCU ONLINE</title>
 	
 	<style type="text/css">
@@ -66,6 +67,8 @@
 calc.addEventListener("click", press_calc);
 clear.addEventListener("click", press_clear);
 risk.addEventListener("keyup", risk_keyup);
+risk.addEventListener("focusout", risk_lost_focus);
+
 
 function press_calc() {
 
@@ -215,6 +218,24 @@ riskusdt.innerHTML = '% de Riesgo <span style="color:red">(' + risk_usdt + ' usd
 
 
 }
+
+function risk_lost_focus() {
+risk_keyup()
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       </script>
 	  
