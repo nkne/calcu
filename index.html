@@ -8,58 +8,57 @@
 	<style type="text/css">
 		
         input {
-        width: 80%;
-        height: 40px;
-        font-size: 16px;
-        text-align: center;
-        border: 1px solid;
-        border-radius: 4px;
-            }
+                width: 300px;
+                height:38px;
+                font-size: 17px;
+                text-align: center;
+                border: 1px solid;
+                border-radius: 4px;
+              }
+
+        .risk {width: 300px;}
             
         * {font-family: 'Arial', 'monospace';}
-        
         h2 {font-family: 'Arial', 'monospace';}
-        
         input[type=number]:focus {background-color: #f2f2f2;}
-            
         .red {color:red;}
             
-        .risk {width: 80%;}
 	</style>
 	
-
   </head>
   <body>
-    <form>
-      <h2 align="center">RANA CALCU ONLINE</h2>
-      <p align=center>
-	  
-	  	<label for="cap" >Capital usdt</label> <br>
-	    <input type="number" size="100" min="0" id="cap" />  <br><br>
-		
-		<label for="risk" id="riskusdt">% de Riesgo</label> <br>
-	    <input type="number" class="risk"  size="100" min="0" id="risk" /> <br><br>
+    <div>
+        <form>
+        <h2 align="center">RANA CALCU ONLINE</h2>
+        <p align="center">
+        
+            <label for="cap" >Capital usdt</label> <br>
+            <input type="number" size="100" min="0" id="cap" />  <br><br>
+            
+            <label for="risk" id="riskusdt">% de Riesgo</label> <br>
+            <input type="number" class="risk"  size="100" min="0" id="risk" /> <br><br>
 
-		<label for="1o">1er Orden</label> <br>
-		<input type="number" size="100" min="0" id="1o" />   <br><br>
-        <label for="2o">2da Orden</label> <br>
-		<input type="number" size="100" min="0" id="2o" />   <br><br>
-		
-		<label for="3o">3er Orden</label> <br>
-		<input type="number" size="100" min="0" id="3o" />   <br><br>
-		
-		<label for="sl">SL</label> <br>
-		<input type="number" class="red" size="100" min="0" id="sl" />   <br><br>
+            <label for="1o">1er Orden</label> <br>
+            <input type="number" size="100" min="0" id="1o" />   <br><br>
+            <label for="2o">2da Orden</label> <br>
+            <input type="number" size="100" min="0" id="2o" />   <br><br>
+            
+            <label for="3o">3er Orden</label> <br>
+            <input type="number" size="100" min="0" id="3o" />   <br><br>
+            
+            <label for="sl">SL</label> <br>
+            <input type="number" class="red" size="100" min="0" id="sl" />   <br><br>
 
-		<input type="button" value="Calcular" id="calc" />   <br><br>
-		<input type="button" value="Borrar" id="clear" />
-		
-		<h5 align=center id="avg">PROMEDIO: / TOTAL PARA ORDEN STOP MARKET:</h5>
-		<h4 align=center id="result">CANT POR C/ORDEN:</h4>
+            <input type="button" value="Calcular" id="calc" />   <br><br>
+            <input type="button" value="Borrar" id="clear" />
+            
+            <h5 align=center id="avg">PROMEDIO: / TOTAL PARA ORDEN STOP MARKET:</h5>
+            <h4 align=center id="result">CANT POR C/ORDEN:</h4>
 
-	  </p>
+        </p>
 
-      </form>
+        </form>
+    </div>
 
     <script>
 
