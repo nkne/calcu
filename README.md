@@ -15,4 +15,4 @@ El nombre rana hace referencia al popular meme viralizado en 2014
 - carga rápida, ya que no usa fuentes externas
 - realiza algunas verificaciones para evitar errores de carga  
 
-[CLICK AQUI PARA VER LA RANA CALCU EN FUNCIONAMIENTO](https://nkne.github.io/calcu/)
+<a href=https://nkne.github.io/calcu/ target="_blank">CLICK AQUI PARA VER LA RANA CALCU EN FUNCIONAMIENTO</a>
